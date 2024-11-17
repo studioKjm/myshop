@@ -20,9 +20,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # 관리자 사이트 URL 패턴
     path('admin/', admin.site.urls),
+    # 카트 애플리케이션 URL 패턴 포함
+    path('cart/', include('cart.urls', namespace='cart')),
+    # 상점 애플리케이션 URL 패턴 포함
     path('', include('shop.urls', namespace='shop')),
 ]
 
+# 디버그 모드일 때 미디어 파일 서빙 설정
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
