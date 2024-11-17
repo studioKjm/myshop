@@ -26,13 +26,13 @@
               <!-- 제품 이미지 링크 -->
               <a href="{{ product.get_absolute_url }}">
                 <img src="{% if product.image %}{{ product.image.url }}
-                {% else %}{% static "img/no_image.png" %}{% endif %}">
+                {% else %}{% static 'img/no_image.png' %}{% endif %}">
               </a>
             </td>
             <td>{{ product.name }}</td>
             <td>
               <!-- 수량 업데이트 폼 -->
-              <form action="{% url "cart:cart_add" product.id %}" method="post">
+              <form action="{% url 'cart:cart_add' product.id %}" method="post">
                 {{ item.update_quantity_form.quantity }}
                 {{ item.update_quantity_form.override }}
                 <input type="submit" value="Update">
@@ -41,7 +41,7 @@
             </td>
             <td>
               <!-- 제품 제거 폼 -->
-              <form action="{% url "cart:cart_remove" product.id %}" method="post">
+              <form action="{% url 'cart:cart_remove' product.id %}" method="post">
                 <input type="submit" value="Remove">
                 {% csrf_token %}
               </form>
@@ -60,8 +60,8 @@
   </table>
   <p class="text-right">
     <!-- 쇼핑 계속하기 버튼 -->
-    <a href="{% url "shop:product_list" %}" class="button light">Continue shopping</a>
+    <a href="{% url 'shop:product_list' %}" class="button light">Continue shopping</a>
     <!-- 결제 버튼 -->
-    <a href="#" class="button">Checkout</a>
+    <a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
   </p>
 {% endblock %}
