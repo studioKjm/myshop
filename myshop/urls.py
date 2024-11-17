@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # 카트 애플리케이션 URL 패턴 포함
     path('cart/', include('cart.urls', namespace='cart')),
+    # 주문 애플리케이션 URL 패턴 포함
+    path('orders/', include('orders.urls', namespace='orders')),
     # 상점 애플리케이션 URL 패턴 포함
     path('', include('shop.urls', namespace='shop')),
 ]
