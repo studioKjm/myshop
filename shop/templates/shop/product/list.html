@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}
+  <!-- 카테고리가 있으면 카테고리 이름을 제목으로 설정, 없으면 'Products'로 설정 -->
   {% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
 
@@ -9,27 +10,33 @@
   <div id="sidebar">
     <h3>Categories</h3>
     <ul>
+      <!-- 카테고리가 없으면 'All' 항목을 선택된 상태로 표시 -->
       <li {% if not category %}class="selected"{% endif %}>
         <a href="{% url "shop:product_list" %}">All</a>
       </li>
       {% for c in categories %}
+      {% endfor %}
+        <!-- 현재 카테고리와 일치하는 항목을 선택된 상태로 표시 -->
         <li {% if category.slug == c.slug %}class="selected"{% endif %}>
           <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
         </li>
-      {% endfor %}
     </ul>
   </div>
   <div id="main" class="product-list">
+    <!-- 카테고리가 있으면 카테고리 이름을 제목으로 설정, 없으면 'Products'로 설정 -->
     <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
     {% for product in products %}
+    {% endfor %}
       <div class="item">
+        <!-- 제품 이미지와 링크 표시 -->
         <a href="{{ product.get_absolute_url }}">
           <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
         </a>
+        <!-- 제품 이름과 링크 표시 -->
         <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
         <br>
+        <!-- 제품 가격 표시 -->
         ${{ product.price }}
       </div>
-    {% endfor %}
   </div>
 {% endblock %}

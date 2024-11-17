@@ -2,24 +2,31 @@
 {% load static %}
 
 {% block title %}
+  <!-- 제품 이름을 제목으로 설정 -->
   {{ product.name }}
 {% endblock %}
 {% block content %}
   <div class="product-detail">
+    <!-- 제품 이미지 표시 -->
     <img src="{% if product.image %}{{ product.image.url }}{% else %}
     {% static 'img/no_image.png' %}{% endif %}">
+    <!-- 제품 이름 표시 -->
     <h1>{{ product.name }}</h1>
+    <!-- 제품 카테고리 링크 표시 -->
     <h2>
       <a href="{{ product.category.get_absolute_url }}">
         {{ product.category }}
       </a>
     </h2>
+    <!-- 제품 가격 표시 -->
     <p class="price">${{ product.price }}</p>
+    <!-- 카트에 제품 추가 폼 -->
     <form action="{% url "cart:cart_add" product.id %}" method="post">
       {{ cart_product_form }}
       {% csrf_token %}
       <input type="submit" value="Add to cart">
     </form>
+    <!-- 제품 설명 표시 -->
     {{ product.description|linebreaks }}
   </div>
 {% endblock %}
