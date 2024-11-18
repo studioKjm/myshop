@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
+from .tasks import order_created
 
 def order_create(request):
     # 장바구니 객체 생성
@@ -20,6 +21,8 @@ def order_create(request):
                                          quantity=item['quantity'])
             # 장바구니 비우기
             cart.clear()
+            # 비동기 작업 실행
+            order_created.delay(order.id)
             # 주문 생성 완료 페이지 렌더링
             return render(request, 'orders/order/created.html', {'order': order})
     else:

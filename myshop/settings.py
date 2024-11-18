@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from django.conf.global_settings import EMAIL_BACKEND
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -130,3 +132,5 @@ MEDIA_URL = '/media/' # p424
 MEDIA_ROOT = BASE_DIR / 'media/' # p424
 
 CART_SESSION_ID = 'cart' # p431
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # p466
